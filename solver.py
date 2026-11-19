@@ -118,11 +118,11 @@ class SsfmGPGPU:
         return tfft.fftshift(self.psik.conj()) * tfft.fftshift(self.psik)
 
     def step(self):
+        self.rStepNR()
         self.halfRStepPsi()
         tfft.fft2(self.psi, out=self.psik)
         self.psik = self.psik * self.kTimeEvo
         tfft.ifft2(self.psik, out=self.psi)
         self.halfRStepPsi()
-        self.rStepNR()
         self.t += self.dt
 
